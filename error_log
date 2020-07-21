@@ -1,0 +1,4 @@
+[31-Jan-2020 02:16:57 America/New_York] PHP Parse error:  syntax error, unexpected 've' (T_STRING) in /home/kgmcbggz/bravodmatfitness.com/sistema/application/config/config.php on line 37
+[31-Jan-2020 02:16:57 America/New_York] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[31-Jan-2020 02:17:00 America/New_York] PHP Parse error:  syntax error, unexpected 've' (T_STRING) in /home/kgmcbggz/bravodmatfitness.com/sistema/application/config/config.php on line 37
+[31-Jan-2020 02:17:00 America/New_York] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
