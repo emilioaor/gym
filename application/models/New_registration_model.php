@@ -37,6 +37,17 @@ class New_registration_model extends CI_Model {
 		$invoice_str =  random_string('alpha', 8);
 		$birthdayDate = $this->input->post('year').'-'.$this->input->post('month').'-'.$this->input->post('day');
 
+        $option = ['cost' => 12];
+        $encripted_pass = password_hash($this->input->post('password') ,  PASSWORD_BCRYPT , $option);
+        $user_data = array(
+            'first_name' => html_escape($this->input->post('name')),
+            'user_password' => html_escape($encripted_pass) ,
+            'last_name' => '',
+            'user_email' => html_escape($this->input->post('email')),
+            'role' => 'member'
+        );
+        $insert_data = $this->db->insert('register_user', $user_data);
+
 
 		$data_his = array(
 			'member_reg_id' => html_escape($this->input->post('membership_id')),
@@ -76,6 +87,7 @@ class New_registration_model extends CI_Model {
 		 );
 		 $insert_data =  $this->db->set('member_join_date', 'NOW()', FALSE);
 		 $insert_data = $this->db->insert('member_reg', $data);
+
 		 return $insert_data;
 	}
     

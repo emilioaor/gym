@@ -29,6 +29,63 @@
              </div>
             </div>
 
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Email','email'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'email',
+                      'id' => 'email',
+                      'placeholder' => 'Enter Email',
+                      'type' => 'email',
+                      'required' => 'required'
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Password','password'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'password',
+                      'id' => 'password',
+                      'placeholder' => 'Enter Password',
+                      'type' => 'password',
+                      'required' => 'required'
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Confirm Password','password'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'confirmpassword',
+                      'id' => 'confirmpassword',
+                      'placeholder' => 'Confirm Password',
+                      'type' => 'password',
+                      'required' => 'required'
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
+
             <div class="form-group row">
               <div class="col-md-2 col-form-label"> 
                  <?php  echo form_label('Upload Image','userimage'); ?>
@@ -53,7 +110,8 @@
                       'class' => 'form-control',
                       'name' => 'name',
                       'id' => 'name',
-                      'placeholder' => 'Enter Name' 
+                      'placeholder' => 'Enter Name',
+                      'required' => 'required'
                     );
                     echo form_input($data);    
                  ?>
@@ -109,23 +167,6 @@
                       'id' => 'year' 
                     );
                     echo form_dropdown($data,$options,'year');    
-                 ?>
-               </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-md-2 col-form-label"> 
-                 <?php  echo form_label('Email','email'); ?>
-              </div>
-               <div class="col-md-4 col-md-offset-4">
-                <?php 
-                    $data = array(
-                      'class' => 'form-control',
-                      'name' => 'email',
-                      'id' => 'email',
-                      'placeholder' => 'Enter Email' 
-                    );
-                    echo form_input($data);    
                  ?>
                </div>
             </div>
@@ -279,7 +320,7 @@
                 <label for="plan">Membership Plan</label>
               </div>
                <div class="col-md-4 col-md-offset-4">  
-                    <select id="plan" name="plan" class="form-control">  
+                    <select id="plan" name="plan" class="form-control" required="required">
                         <option value="">Select</option>
                         <?php   
                           foreach ($plans as $plan) {

@@ -42,6 +42,9 @@ class New_registration_controller extends CI_Controller {
 
 			$this->form_validation->set_rules('name','Name','trim|required|min_length[3]');
 			$this->form_validation->set_rules('plan','Membership Plan','trim|required');
+            $this->form_validation->set_rules('email','Email','trim|required|min_length[3]');
+            $this->form_validation->set_rules('password','Password','trim|required|min_length[3]');
+            $this->form_validation->set_rules('confirmpassword','Confirm Password','trim|required|min_length[3]|matches[password]');
 
 			if($this->form_validation->run() == FALSE)
 			{
