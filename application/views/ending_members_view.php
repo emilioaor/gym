@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('is_logged_in')): ?>
+<?php if($this->session->userdata('is_logged_in') && $this->session->userdata('role') === 'admin'): ?>
 <!-- DataTables -->
 <div class="card mb-3">
   <div class="card-header"><i class="fas fa-table"></i> Members List</div>

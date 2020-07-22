@@ -43,7 +43,8 @@ class Register_controller extends CI_Controller {
             foreach ($data as $value) {
                 $sess_data = array(
                     'id'           => $value->user_id,
-                    'username'     => $value->first_name
+                    'username'     => $value->first_name,
+                    'role' => $value->role
                 );
                 $this->session->set_userdata($sess_data);
             }
@@ -59,7 +60,13 @@ class Register_controller extends CI_Controller {
                 'is_logged_in' => true
             );
             $this->session->set_userdata($user_data);
-            redirect('admin_controller');
+
+            if ($sess_data['role'] === 'admin') {
+                redirect('admin_controller');
+            } else {
+                redirect('member_controller');
+            }
+
         }else
         {
             redirect('Login_controller');

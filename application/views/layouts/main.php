@@ -91,94 +91,15 @@
           break;
     }
     ?>
-    <?php 
-    $gym_settings = $this->layout_model->get_gym_settings();
-      foreach ($gym_settings as $name) 
-      {
-        $brand_name = html_escape($name->brand_name);
-      }
-     ?>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="<?php echo base_url(); ?>admin_controller"><?php echo html_escape($brand_name); ?></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item <?php if($s == "Home"){ echo html_escape('active'); } ?>"> 
-            <a class="nav-link" href="<?php echo base_url(); ?>admin_controller">Dashboard</a>
-          </li>
 
-          <li class="nav-item <?php if($s == "Registration"){ echo html_escape('active'); } ?>">
-            <a class="nav-link" href="<?php echo base_url(); ?>new_registration_controller">New Registration</a>
-          </li>
+    <?php $this->load->view('layouts/navbar', compact('s')) ?>
 
-          <li class="nav-item <?php if($s == "Payment"){ echo html_escape('active'); } ?>">
-            <a class="nav-link" href="<?php echo base_url(); ?>payments_controller">Payments</a>
-          </li>
-
-          <li class="nav-item <?php if($s == "Member List"){ echo html_escape('active'); } ?>" >
-            <a class="nav-link" href="<?php echo base_url(); ?>member_list_controller">Members</a>
-          </li>
-
-          <li class="nav-item dropdown <?php if($s == 'Edit Plans' || $s == 'Add Plan' ){ echo html_escape('active'); } ?>">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Plan
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="<?php echo base_url(); ?>add_plan_controller/add_plan">New Plan</a>
-              <a class="dropdown-item" href="<?php echo base_url(); ?>plan_controller">Edit Plan</a>
-            </div>
-          </li>
-
-          <li class="nav-item dropdown <?php if($s == 'Find Income' || $s == 'Find Members' ){ echo html_escape('active'); } ?>">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Overview
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="<?php echo base_url(); ?>find_members_per_month_controller">Members per month</a>
-              <a class="dropdown-item" href="<?php echo base_url(); ?>find_income_per_month_controller">Income per month</a>
-            </div>
-          </li>
-
-          <li class="nav-item dropdown <?php if($s == 'Unpaid Members' || $s == 'Ending Members' ){ echo html_escape('active'); } ?>">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             Alert
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-             <a class="dropdown-item" href="<?php echo base_url(); ?>unpaid_members_alert_controller">Unpaid members</a>
-             <a class="dropdown-item" href="<?php echo base_url(); ?>ending_members_controller">Ending members</a>
-            </div>
-          </li>
-
-          <li class="nav-item <?php if($s == "Settings"){ echo html_escape('active'); } ?>">
-            <a class="nav-link" href="<?php echo base_url(); ?>layout_controller">Settings</a>
-          </li>
-
-        </ul>
-
-        <ul class="navbar-nav  ml-auto  ">
-
-          <li class="nav-item dropdown no-arrow <?php if($s == 'Edit Profile'){ echo 'active'; } ?>">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span><?php echo $this->session->userdata('username'); ?></span>  <i class="fas fa-user-circle fa-fw"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-              <a class="dropdown-item" href="<?php echo base_url(); ?>edit_profile_controller">Edit Profile</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#"  data-toggle="modal" data-target="#logoutModal">Logout</a>
-            </div>
-          </li>
-
-        </ul>
-      </div>
-    </nav>
    <!-- Wrapper -->
     <div id="wrapper">
       <div id="content-wrapper">
         <div class="container-fluid">
            <!-- view files here -->
-            <?php $this->load->view($main_view); ?> 
+            <?php $this->load->view($main_view); ?>
          </div>
        </div>
      </div>

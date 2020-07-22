@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('is_logged_in')): ?>
+<?php if($this->session->userdata('is_logged_in') && $this->session->userdata('role') === 'admin'): ?>
 <?php 
   if($this->input->post('from'))  
   {

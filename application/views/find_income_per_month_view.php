@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('is_logged_in')): ?>
+<?php if($this->session->userdata('is_logged_in') && $this->session->userdata('role') === 'admin'): ?>
 <div class="row">
   <div class="col-md-12">
     <div class="card  mb-3 ">

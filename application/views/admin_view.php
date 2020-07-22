@@ -1,4 +1,4 @@
-  <?php if($this->session->userdata('is_logged_in')): ?>
+<?php if($this->session->userdata('is_logged_in') && $this->session->userdata('role') === 'admin'): ?>
   <?php   
     $total = 0;
     if (!empty($income_per_month)) {
