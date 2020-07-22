@@ -6,6 +6,7 @@ class Member_controller extends CI_Controller {
 	public function index()
 	{
 		$data['main_view'] = "member_view";
+
 		$this->load->view('layouts/main', $data);
 	}
 }

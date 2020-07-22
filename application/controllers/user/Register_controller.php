@@ -44,8 +44,11 @@ class Register_controller extends CI_Controller {
                 $sess_data = array(
                     'id'           => $value->user_id,
                     'username'     => $value->first_name,
-                    'role' => $value->role
+                    'role' => $value->role,
+                    'email' => $value->user_email,
+                    'member' => $this->members_model->get_by_email($value->user_email)
                 );
+
                 $this->session->set_userdata($sess_data);
             }
         }

@@ -91,6 +91,21 @@ class Members_model extends CI_Model {
 	        return NULL;
 	    }
 	}
+
+	public function get_by_email($email)
+    {
+        $this->db->select('*,plans.plan_name');
+        $this->db->from('member_reg');
+        $this->db->join('plans','member_reg.member_plan_id = plans.plan_id');
+        $this->db->where('member_email', $email);
+        $query = $this->db->get();
+
+        if ($query->num_rows()) {
+            return $query->result()[0];
+        }
+
+        return null;
+    }
     
     //Get Histroy of Member
 	public function get_member_his($member_id)
