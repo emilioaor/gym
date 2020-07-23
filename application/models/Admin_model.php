@@ -77,10 +77,10 @@ class Admin_model extends CI_Model {
 
 	public function getBirthday()
 	{
-		
+        $date = new \DateTime(date('Y-m-d'));
 		$this->db->select('member_name');
 		$this->db->from('member_reg');
-		$this->db->where('member_birthday_date =',date('Y-m-d'));
+        $this->db->where('member_birthday_date LIKE', '%' . $date->format('-m-d'));
 		$query = $this->db->get();
 
 		if($query->num_rows() > 0 )
@@ -92,5 +92,73 @@ class Admin_model extends CI_Model {
 		}
 	}
 
+    public function getBirthdayByDate($date)
+    {
+        $date = new \DateTime($date);
+
+        $this->db->select('member_reg.*, plans.plan_name');
+        $this->db->from('member_reg');
+        $this->db->where('member_birthday_date LIKE', '%' . $date->format('-m-d'));
+        $this->db->join('plans','member_reg.member_plan_id = plans.plan_id');
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0 )
+        {
+            return $query->result();
+        } else
+        {
+            return [];
+        }
+    }
+
+	public function getBirthdayCalendar()
+    {
+        $weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+        $start = new \DateTime(date('Y-m-01'));
+        $end = (new \DateTime(date('Y-m-01')))->modify('+1 month')->modify('-1 day');
+        $calendar = [];
+
+        while ($start <= $end) {
+
+            $week = [];
+
+            foreach ($weekDays as $weekDay) {
+
+                $wd = strtoupper(substr($start->format('l'), 0, 3));
+                $week[$weekDay] = [
+                    'day' => '',
+                    'members' => []
+                ];
+
+                if ($wd === $weekDay && $start <= $end) {
+                    $week[$weekDay]['day'] = $start->format('d M');
+                    $week[$weekDay]['members'] = $this->getBirthdayByDate($start->format('Y-m-d'));
+                    $start->modify('+1 day');
+                }
+            }
+
+            $calendar[] = $week;
+        }
+
+        return $calendar;
+    }
+
+    public function next5daysBirthdays()
+    {
+        $start = new \DateTime();
+        $end = (new \DateTime())->modify('+5 days');
+        $next5days = [];
+
+        while ($start <= $end) {
+
+            $members = $this->getBirthdayByDate($start->format('Y-m-d'));
+
+            $next5days = array_merge($next5days, $members);
+
+            $start->modify('+1 day');
+        }
+
+        return $next5days;
+    }
  }
-?>

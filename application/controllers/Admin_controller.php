@@ -17,7 +17,11 @@ class Admin_controller extends CI_Controller {
 	 
 		$chart = array(	$data['total_members'] , $data['total_mem_in_month'],$unpaid_members,$expire_mem,$total_plans);
 		$data['chart_data'] = json_encode($chart);
-		 
+
+		$data['data'] = [
+		    'calendar' => $this->admin_model->getBirthdayCalendar(),
+            'next5days' => $this->admin_model->next5daysBirthdays()
+        ];
 
 		$data['main_view'] = "admin_view";
 		$this->load->view('layouts/main', $data);

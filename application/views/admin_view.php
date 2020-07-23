@@ -113,7 +113,71 @@
       <i class="fas fa-calendar"></i>
       birthday Calendar</div>
     <div class="card-body">
-      <div id="birthdayCalendar" width="100%" height="30"></div>
+      <div id="birthdayCalendar">
+
+          <!-- Calendar -->
+          <div class="border border-white">
+              <div class="d-flex justify-content-start">
+                <?php foreach ($data['calendar'][0] as $wd => $week): ?>
+                      <div class="w-100 p-2 bg-dark border border-white">
+                          <div class="text-white text-center">
+                              <strong><?php echo $wd ?></strong>
+                          </div>
+                      </div>
+                <?php endforeach ?>
+              </div>
+              <?php foreach ($data['calendar'] as $week): ?>
+                  <div class="d-flex justify-content-start">
+                      <?php foreach ($week as $day): ?>
+                          <div class="w-100 p-2 border border-dark <?php echo $day['members'] ? 'bg-success' : '' ?>">
+                              <div class="">
+                                  <strong><?php echo $day['day'] ?></strong>
+                              </div>
+
+                                <?php foreach ($day['members'] as $member): ?>
+                                    <div class="" style="font-size: 14px;">
+                                        <small>
+                                            <i class="fa fa-birthday-cake"></i>
+                                            <?php echo $member->member_name ?>
+                                        </small>
+                                    </div>
+                                <?php endforeach ?>
+                          </div>
+                      <?php endforeach ?>
+                  </div>
+              <?php endforeach ?>
+          </div>
+
+          <div class="mt-5 ml-2">
+              <h5><strong>Next 5 days</strong></h5>
+
+              <table class="table  w-100">
+                  <thead>
+                    <tr class="bg-dark text-white">
+                        <th>Birthday Date</th>
+                        <th>Name</th>
+                        <th>Address/Contact</th>
+                        <th>Age/Sex</th>
+                        <th>Age/Sex</th>
+                        <th>Membership Expiry</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($data['next5days'] as $member): ?>
+                        <tr>
+                            <td><?php echo \DateTime::createFromFormat('Y-m-d', $member->member_birthday_date)->format('d M') ?></td>
+                            <td><?php echo $member->member_name ?></td>
+                            <td><?php echo $member->member_address ?>/<?php echo $member->member_contact ?></td>
+                            <td><?php echo $member->member_age ?>/<?php echo $member->member_sex ?></td>
+                            <td><?php echo $member->member_join_date ?>/<?php echo $member->plan_name ?></td>
+                            <td><?php echo $member->member_exp_date ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                  </tbody>
+              </table>
+          </div>
+
+      </div>
     </div>
   </div>
 
