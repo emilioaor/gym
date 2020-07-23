@@ -139,6 +139,7 @@ $autoload['model'] = array(
 					'add_plan_model',
 					'payment_model',
 					'members_model',
+					'class_model',
 					'overview_model',
 					'admin_model',
 					'layout_model'

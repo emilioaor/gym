@@ -27,6 +27,7 @@
     <?php
     // Switch case for breadcrumb
     $s = $this->uri->segment(1);
+
     switch ($s) 
     {
       case 'new_registration_controller':
@@ -85,6 +86,9 @@
       case 'admin_controller':
           $s =  "Home";
           break;
+      case 'class_controller':
+          $s =  "Classes";
+          break;
 
       default:
           $s =  "Home";
@@ -99,7 +103,7 @@
       <div id="content-wrapper">
         <div class="container-fluid">
            <!-- view files here -->
-            <?php $this->load->view($main_view); ?>
+            <?php $this->load->view($main_view, compact('data')); ?>
          </div>
        </div>
      </div>

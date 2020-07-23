@@ -17,6 +17,7 @@ foreach ($gym_settings as $name)
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
         <?php if ($this->session->userdata('role') === 'admin') { $this->load->view('layouts/navbar_admin', compact('s')); } ?>
+        <?php if ($this->session->userdata('role') === 'member') { $this->load->view('layouts/navbar_member', compact('s')); } ?>
 
         <ul class="navbar-nav  ml-auto  ">
             <li class="nav-item dropdown no-arrow <?php if($s == 'Edit Profile'){ echo 'active'; } ?>">
