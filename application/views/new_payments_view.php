@@ -75,7 +75,6 @@
                        $data = array(
                          'class' => 'form-control',
                          'type' => 'date',
-                         'readonly' => TRUE,
                          'name' => 'pay_date',
                          'value' =>  date('Y-m-d'),
                          'id' => 'date'
