@@ -72,6 +72,8 @@ class Register_controller extends CI_Controller {
 
         }else
         {
+            $this->session->set_flashdata('alert_type', 'danger');
+            $this->session->set_flashdata('alert_msg', 'Invalid credentials');
             redirect('Login_controller');
         }
 

@@ -23,6 +23,8 @@
 
   <div class="container">
     <div class="card card-login mx-auto mt-5">
+
+        <?php $this->load->view('layouts/alert') ?>
       <div class="card-header">Login</div>
       <div class="card-body">
          <?php echo form_open('user/register_controller/login_user'); ?>

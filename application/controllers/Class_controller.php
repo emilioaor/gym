@@ -56,12 +56,18 @@ class Class_controller extends CI_Controller {
     public function subscribe()
     {
         $this->class_model->subscribe_class();
+        $this->session->set_flashdata('alert_type', 'success');
+        $this->session->set_flashdata('alert_msg', 'Process completed');
+
         redirect('class_controller');
     }
 
     public function unsubscribe()
     {
         $this->class_model->unsubscribe_by_date(html_escape($this->input->post('date')));
+        $this->session->set_flashdata('alert_type', 'success');
+        $this->session->set_flashdata('alert_msg', 'Process completed');
+
         redirect('class_controller');
     }
 }

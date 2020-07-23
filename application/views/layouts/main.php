@@ -102,6 +102,8 @@
     <div id="wrapper">
       <div id="content-wrapper">
         <div class="container-fluid">
+            <?php $this->load->view('layouts/alert') ?>
+
            <!-- view files here -->
             <?php $this->load->view($main_view, compact('data')); ?>
          </div>
