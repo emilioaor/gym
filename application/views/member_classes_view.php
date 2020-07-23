@@ -63,7 +63,7 @@
                                                 <button class="btn btn-info" disabled>
                                                     Closed
                                                 </button>
-                                            <?php elseif($class->count_subscribers >= 8 || $data['any_subscribed']): ?>
+                                            <?php elseif($class->count_subscribers >= 8 || in_array($class->date, $data['subscribed_dates'])): ?>
                                                 <button class="btn btn-primary" disabled>Subscribe</button>
                                             <?php else: ?>
                                                 <button class="btn btn-primary">Subscribe</button>

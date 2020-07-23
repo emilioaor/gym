@@ -13,15 +13,17 @@ class Class_controller extends CI_Controller {
         $tomorrow = new \DateTime('+1 day');
         $to = $tomorrow->format('H:00:00');
         $classes = [];
-        $anySubscribed = false;
+        $subscribedDates = [];
+        $expDate = $this->session->userdata('member')->member_exp_date;
+
         foreach ($cls as $class) {
             // Todas las clases de hoy
-            if ($class->time >= $from) {
+            if ($class->time >= $from && $now->format('Y-m-d') <= $expDate) {
                 $class->date = $now->format('Y-m-d');
                 $class->count_subscribers = $this->class_model->count_subscribers($class->date, $class->time)->count_subscribers;
                 $class->subscribed = $this->class_model->am_i_subscribed($class->date, $class->time);
                 if ($class->subscribed) {
-                    $anySubscribed = true;
+                    $subscribedDates[] = $class->date;
                 }
 
                 $classes[] = clone $class;
@@ -29,12 +31,12 @@ class Class_controller extends CI_Controller {
         }
         foreach ($cls as $class) {
             // Clases que no superen las 24 horas
-            if ($class->time <= $to) {
+            if ($class->time <= $to && $tomorrow->format('Y-m-d') <= $expDate) {
                 $class->date = $tomorrow->format('Y-m-d');
                 $class->count_subscribers = $this->class_model->count_subscribers($class->date, $class->time)->count_subscribers;
                 $class->subscribed = $this->class_model->am_i_subscribed($class->date, $class->time);
                 if ($class->subscribed) {
-                    $anySubscribed = true;
+                    $subscribedDates[] = $class->date;
                 }
 
                 $classes[] = clone $class;
@@ -45,7 +47,7 @@ class Class_controller extends CI_Controller {
             'classes' => $classes,
             'date' => $now->format('Y-m-d'),
             'time' => $from,
-            'any_subscribed' => $anySubscribed
+            'subscribed_dates' => $subscribedDates
         ];
 
         $this->load->view('layouts/main', $data);
