@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // To set the current time 
-date_default_timezone_set('Asia/Karachi');
+date_default_timezone_set('America/Los_Angeles');
 
 // Copy env.example.php as env.php
 include BASEPATH . '../env.php';
