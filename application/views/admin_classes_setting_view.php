@@ -19,15 +19,36 @@
                                     </strong>
                                 </div>
                                 <div class="card-body">
-                                    <?php
+                                    <div class="form-group">
+                                        <?php
                                         echo form_input(array(
                                             'class' => 'form-control',
-                                            'name' => "classes[{$class->id}]",
+                                            'name' => "classes[{$class->id}][time]",
                                             'placeholder' => 'Time',
                                             'type' => 'time',
                                             'value' => $class->time
                                         ))
-                                    ?>
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="bg-success text-white d-inline-block px-1 py-1 opacity">
+                                            <?php echo form_radio(array(
+                                                'name' => "classes[{$class->id}][status]",
+                                                'value' => 'active',
+                                                'checked' => $class->status === 'active' ? 'checked' : '',
+                                            )) ?>
+                                            <strong>Active</strong>
+                                        </div>
+
+                                        <div class="bg-danger text-white d-inline-block px-1 py-1">
+                                            <?php echo form_radio(array(
+                                                'name' => "classes[{$class->id}][status]",
+                                                'value' => 'inactive',
+                                                'checked' => $class->status === 'inactive' ? 'checked' : ''
+                                            )) ?>
+                                            <strong>Inactive</strong>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

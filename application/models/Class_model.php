@@ -6,6 +6,13 @@ class Class_model extends CI_Model {
         return $this->db->get('classes')->result();
     }
 
+    public function get_actives()
+    {
+        $this->db->where('status', 'active');
+
+        return $this->db->get('classes')->result();
+    }
+
     public function count_subscribers($date, $time)
     {
         $this->db->select('COUNT(class_member.id) as count_subscribers');
@@ -91,7 +98,7 @@ class Class_model extends CI_Model {
 
     public function class_today()
     {
-        $cls = $this->get_all();
+        $cls = $this->get_actives();
         $now = new \DateTime();
         $from = $now->format('H:00:00');
         $tomorrow = new \DateTime('+1 day');
@@ -143,9 +150,12 @@ class Class_model extends CI_Model {
 
     public function save_setting()
     {
-        foreach ($this->input->post('classes') as $id => $time) {
+        foreach ($this->input->post('classes') as $id => $class) {
             $id = html_escape($id);
-            $data = ['time' => html_escape($time)];
+            $data = [
+                'time' => html_escape($class['time']),
+                'status' => html_escape($class['status'])
+            ];
 
             $this->db->where('id', $id);
             $this->db->update('classes', $data);
