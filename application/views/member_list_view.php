@@ -41,12 +41,12 @@
         <tbody>
           <?php foreach ($members as $member): ?>
             <tr>
-              <td><?php echo html_escape($member->member_exp_date); ?></td>
+              <td><?php echo html_escape((new \DateTime($member->member_exp_date))->format('d-m-Y')); ?></td>
               <td><?php echo html_escape($member->member_name); ?></td>
               <td><?php echo html_escape($member->member_address) .'/'. html_escape($member->member_contact); ?> </td>
-              <td><?php echo html_escape($member->member_birthday_date); ?> </td>
+              <td><?php echo html_escape((new \DateTime($member->member_birthday_date))->format('d-m-Y')); ?> </td>
               <td><?php echo html_escape($member->member_age).'/'. html_escape($member->member_sex); ?></td>
-              <td><?php echo html_escape($member->member_join_date).'/'. html_escape($member->plan_name); ?></td>
+              <td><?php echo html_escape((new \DateTime($member->member_join_date))->format('d-m-Y')).'/'. html_escape($member->plan_name); ?></td>
               <td>
                <div class="btn-group" role="group" aria-label="First group">
                   <a href="<?php echo base_url(); ?>new_registration_controller/editMembership/<?php echo $member->member_reg_id ?>" type="button" class="btn btn-warning" title="Edit Membership">Membership</a>

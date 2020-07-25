@@ -158,7 +158,7 @@ class Members_model extends CI_Model {
 		$rate =  $get_plan_detail->row(4)->plan_rate;
 
 		// to find the expiry date
-		$member_payment_date =   date("Y-m-d");
+		$member_payment_date = html_escape($this->input->post('p_date'));
 		$member_exp_date = date("Y-m-d", strtotime(date("Y-m-d", strtotime($member_payment_date)) ."+". $days."day"));
 
 		// To find member remaining or due ammount
