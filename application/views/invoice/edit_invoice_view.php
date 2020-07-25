@@ -86,7 +86,6 @@
                   'class' => 'form-control',
                   'name' => 'p_date',
                   'id' => 'p_date',
-                  'readonly'=> 'readonly',
                   'type' => 'date',
                   'value' => html_escape($invoice_detail['p_date']),
                   'placeholder' => '' 
