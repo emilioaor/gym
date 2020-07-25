@@ -3,10 +3,6 @@
         <a class="nav-link" href="<?php echo base_url(); ?>admin_controller">Dashboard</a>
     </li>
 
-    <li class="nav-item <?php if($s == "Classes"){ echo html_escape('active'); } ?>">
-        <a class="nav-link" href="<?php echo base_url(); ?>admin_class_controller">Classes</a>
-    </li>
-
     <li class="nav-item <?php if($s == "Registration"){ echo html_escape('active'); } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>new_registration_controller">New Registration</a>
     </li>
@@ -17,6 +13,16 @@
 
     <li class="nav-item <?php if($s == "Member List"){ echo html_escape('active'); } ?>" >
         <a class="nav-link" href="<?php echo base_url(); ?>member_list_controller">Members</a>
+    </li>
+
+    <li class="nav-item dropdown <?php if($s == "Classes"){ echo html_escape('active'); } ?>">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Classes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="<?php echo base_url(); ?>admin_class_controller">Subscribers</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>admin_class_controller/setting">Setting</a>
+        </div>
     </li>
 
     <li class="nav-item dropdown <?php if($s == 'Edit Plans' || $s == 'Add Plan' ){ echo html_escape('active'); } ?>">

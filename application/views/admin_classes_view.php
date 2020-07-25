@@ -1,4 +1,4 @@
-<?php if($this->session->userdata('is_logged_in')): ?>
+<?php if($this->session->userdata('is_logged_in') && $this->session->userdata('role') === 'admin'): ?>
 
     <div class="card mb-3">
         <div class="card-header">
@@ -41,14 +41,6 @@
 
 
                                 <div class="mt-5 text-center">
-
-                                    <?php if ($data['date'] === $class->date && $data['time'] === $class->time): ?>
-                                        <button class="btn btn-dark" disabled>Edit</button>
-                                    <?php else: ?>
-                                        <button class="btn btn-dark">
-                                            Edit
-                                        </button>
-                                    <?php endif ?>
 
                                     <?php if ($class->count_subscribers): ?>
                                         <button class="btn btn-primary" data-toggle="modal" data-target="#subscribersModal<?php echo $i ?>">

@@ -27,7 +27,11 @@
                                 <div>
                                     <strong>Status:</strong>
 
-                                    <?php if ($data['date'] === $class->date && $data['time'] === $class->time): ?>
+                                    <?php if ($data['date'] === $class->date && $data['time'] > $class->time): ?>
+                                        <span class="text-white bg-success d-inline-block mt-1 px-2 rounded">
+                                            <strong>Complete</strong>
+                                        </span>
+                                    <?php elseif ($data['date'] === $class->date && $data['time'] === $class->time): ?>
                                         <span class="text-white bg-info d-inline-block mt-1 px-2 rounded">
                                             <strong>In process</strong>
                                         </span>
@@ -47,7 +51,9 @@
                                             <input type="hidden" name="date" value="<?php echo $class->date ?>">
                                             <input type="hidden" name="class_id" value="<?php echo $class->id ?>">
 
-                                            <?php if (($data['date'] === $class->date && $data['time'] === $class->time)): ?>
+                                            <?php if (($data['date'] === $class->date && $data['time'] >= $class->time)): ?>
+                                                <button class="btn btn-success" disabled>I was here</button>
+                                            <?php elseif (($data['date'] === $class->date && $data['time'] === $class->time)): ?>
                                                 <button class="btn btn-danger" disabled>Unsubscribe</button>
                                             <?php else: ?>
                                                 <button class="btn btn-danger">Unsubscribe</button>
@@ -59,10 +65,8 @@
                                             <input type="hidden" name="date" value="<?php echo $class->date ?>">
                                             <input type="hidden" name="class_id" value="<?php echo $class->id ?>">
 
-                                            <?php if ($data['date'] === $class->date && $data['time'] === $class->time): ?>
-                                                <button class="btn btn-info" disabled>
-                                                    Closed
-                                                </button>
+                                            <?php if ($data['date'] === $class->date && $data['time'] >= $class->time): ?>
+                                                <button class="btn btn-info" disabled>Closed</button>
                                             <?php elseif($class->count_subscribers >= 8 || in_array($class->date, $data['subscribed_dates'])): ?>
                                                 <button class="btn btn-primary" disabled>Subscribe</button>
                                             <?php else: ?>

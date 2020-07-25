@@ -105,11 +105,12 @@ class Class_model extends CI_Model {
 
         foreach ($cls as $class) {
             // Todas las clases de hoy
-            if ($class->time >= $from && $now->format('Y-m-d') <= $expDate) {
-                $class->date = $now->format('Y-m-d');
+            $class->date = $now->format('Y-m-d');
+            $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
+
+            if ($class->subscribed || ($class->time >= $from && $now->format('Y-m-d') <= $expDate)) {
                 $class->members = $this->get_subscribers($class->date, $class->time);
                 $class->count_subscribers = count($class->members);
-                $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
                 if ($class->subscribed) {
                     $subscribedDates[] = $class->date;
                 }
@@ -138,5 +139,18 @@ class Class_model extends CI_Model {
             'time' => $from,
             'subscribed_dates' => $subscribedDates
         ];
+    }
+
+    public function save_setting()
+    {
+        foreach ($this->input->post('classes') as $id => $time) {
+            $id = html_escape($id);
+            $data = ['time' => html_escape($time)];
+
+            $this->db->where('id', $id);
+            $this->db->update('classes', $data);
+        }
+
+        return true;
     }
 }
