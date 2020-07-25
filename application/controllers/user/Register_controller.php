@@ -35,7 +35,7 @@ class Register_controller extends CI_Controller {
     public function login_user()
     {
 
-        $user_id = $this->register_user_model->login();
+        $user_id = $this->register_user_model->login_by_email_or_phone();
         $this->register_user_model->set('user_id',$user_id);
         $data = $this->register_user_model->get_user();
         if(!empty($data))

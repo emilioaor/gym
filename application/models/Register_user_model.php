@@ -57,6 +57,48 @@ class Register_user_model extends CI_Model {
 	 	{
 	 		return FALSE;
 	 	}
-	 } 
- }
-?>
+	 }
+
+    public function login_by_email_or_phone()
+    {
+        $email = html_escape($this->input->post('useremail'));
+        $password = html_escape($this->input->post('userpassword'));
+
+        $user = $this->get_user_by_phone($email);
+
+        if (! $user) {
+            $user = $this->get_user_by_email($email);
+        }
+
+        if (! $user) {
+            return false;
+        }
+
+        $db_password = $user->user_password;
+
+        if (password_verify($password, $db_password)) {
+            return $user->user_id;
+        }
+
+        return false;
+    }
+
+    public function get_user_by_phone($phone)
+    {
+        $this->db->select('register_user.*');
+        $this->db->from('register_user');
+        $this->db->join('member_reg', 'member_reg.member_email = register_user.user_email');
+        $this->db->where('member_reg.member_contact', $phone);
+
+        return $this->db->get()->row(0);
+    }
+
+    public function get_user_by_email($email)
+    {
+        $this->db->select('register_user.*');
+        $this->db->from('register_user');
+        $this->db->where('user_email', $email);
+
+        return $this->db->get()->row(0);
+    }
+}

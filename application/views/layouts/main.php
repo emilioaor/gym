@@ -105,7 +105,7 @@
             <?php $this->load->view('layouts/alert') ?>
 
            <!-- view files here -->
-            <?php $this->load->view($main_view, compact('data')); ?>
+            <?php $this->load->view($main_view, ['data' => isset($data) ? $data : []]); ?>
          </div>
        </div>
      </div>

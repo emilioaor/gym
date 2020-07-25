@@ -30,16 +30,16 @@
          <?php echo form_open('user/register_controller/login_user'); ?>
            <div class="form-group">
               <div class="form-label-group">
-                <?php 
+                <?php
                     $data = array(
                       'class' => 'form-control',
                       'name' => 'useremail',
                       'id' => 'inputEmail',
-                      'placeholder' => 'Email address',
+                      'placeholder' => 'Email / Phone',
                       'autofocus' => 'autofocus'
                     );
                     echo form_input($data);
-                    echo form_label('Email address','inputEmail');
+                    echo form_label('Email / Phone','inputEmail');
                  ?>
               </div>
            </div>
