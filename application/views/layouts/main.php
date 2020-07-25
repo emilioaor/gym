@@ -89,6 +89,9 @@
       case 'class_controller':
           $s =  "Classes";
           break;
+      case 'admin_class_controller':
+          $s =  "Classes";
+          break;
 
       default:
           $s =  "Home";

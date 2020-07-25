@@ -17,6 +17,18 @@ class Class_model extends CI_Model {
         return $this->db->get()->result()[0];
     }
 
+    public function get_subscribers($date, $time)
+    {
+        $this->db->select('member_reg.*');
+        $this->db->from('class_member');
+        $this->db->join('classes', 'classes.id = class_member.class_id');
+        $this->db->join('member_reg', 'member_reg.member_id = class_member.member_id');
+        $this->db->where('date', $date);
+        $this->db->where('time', $time);
+
+        return $this->db->get()->result();
+    }
+
     public function get_by_id($id)
     {
         $this->db->where('id', $id);
@@ -26,12 +38,14 @@ class Class_model extends CI_Model {
 
     public function am_i_subscribed($date, $time)
     {
+        $member_id = $this->session->userdata('role') === 'member' ? $this->session->userdata('member')->member_id : 0;
+
         $this->db->select('COUNT(class_member.id) as count');
         $this->db->from('class_member');
         $this->db->join('classes', 'classes.id = class_member.class_id');
         $this->db->where('date', $date);
         $this->db->where('time', $time);
-        $this->db->where('member_id', $this->session->userdata('member')->member_id);
+        $this->db->where('member_id', $member_id);
 
         return $this->db->get()->result()[0]->count;
     }
@@ -73,5 +87,56 @@ class Class_model extends CI_Model {
         $this->db->where('member_id', $this->session->userdata('member')->member_id);
 
         return $this->db->delete('class_member');
+    }
+
+    public function class_today()
+    {
+        $cls = $this->get_all();
+        $now = new \DateTime();
+        $from = $now->format('H:00:00');
+        $tomorrow = new \DateTime('+1 day');
+        $to = $tomorrow->format('H:00:00');
+        $classes = [];
+        $subscribedDates = [];
+        $expDate = $this->session->userdata('role') === 'member' ?
+            $this->session->userdata('member')->member_exp_date :
+            (new \DateTime('+1 year'))->format('Y-m-d')
+        ;
+
+        foreach ($cls as $class) {
+            // Todas las clases de hoy
+            if ($class->time >= $from && $now->format('Y-m-d') <= $expDate) {
+                $class->date = $now->format('Y-m-d');
+                $class->members = $this->get_subscribers($class->date, $class->time);
+                $class->count_subscribers = count($class->members);
+                $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
+                if ($class->subscribed) {
+                    $subscribedDates[] = $class->date;
+                }
+
+                $classes[] = clone $class;
+            }
+        }
+        foreach ($cls as $class) {
+            // Clases que no superen las 24 horas
+            if ($class->time <= $to && $tomorrow->format('Y-m-d') <= $expDate) {
+                $class->date = $tomorrow->format('Y-m-d');
+                $class->members = $this->get_subscribers($class->date, $class->time);
+                $class->count_subscribers = count($class->members);
+                $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
+                if ($class->subscribed) {
+                    $subscribedDates[] = $class->date;
+                }
+
+                $classes[] = clone $class;
+            }
+        }
+
+        return [
+            'classes' => $classes,
+            'date' => $now->format('Y-m-d'),
+            'time' => $from,
+            'subscribed_dates' => $subscribedDates
+        ];
     }
 }

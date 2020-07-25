@@ -3,6 +3,10 @@
         <a class="nav-link" href="<?php echo base_url(); ?>admin_controller">Dashboard</a>
     </li>
 
+    <li class="nav-item <?php if($s == "Classes"){ echo html_escape('active'); } ?>">
+        <a class="nav-link" href="<?php echo base_url(); ?>admin_class_controller">Classes</a>
+    </li>
+
     <li class="nav-item <?php if($s == "Registration"){ echo html_escape('active'); } ?>">
         <a class="nav-link" href="<?php echo base_url(); ?>new_registration_controller">New Registration</a>
     </li>
