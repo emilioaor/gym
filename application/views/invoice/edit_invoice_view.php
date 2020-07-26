@@ -90,7 +90,7 @@
                   'value' => html_escape($invoice_detail['p_date']),
                   'placeholder' => '' 
                 );
-                echo form_input($data);    
+                $this->load->view('layouts/datepicker', ['attr' => $data])
              ?>
            </div>
         </div>

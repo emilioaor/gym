@@ -79,7 +79,8 @@
                          'value' =>  date('Y-m-d'),
                          'id' => 'date'
                        );
-                       echo form_input($data);    
+
+                       $this->load->view('layouts/datepicker', ['attr' => $data])
                     ?>
                  </div>
                </div>

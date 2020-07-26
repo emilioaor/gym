@@ -40,7 +40,7 @@
                       'type' => 'date',
                       'value' => html_escape($member_detail['member_join_date'])
                     );
-                    echo form_input($data);    
+                    $this->load->view('layouts/datepicker', ['attr' => $data])
                  ?>
                </div>
             </div>
@@ -58,7 +58,7 @@
                       'type' => 'date',
                       'value' => html_escape($member_detail['member_exp_date'])
                     );
-                    echo form_input($data);    
+                    $this->load->view('layouts/datepicker', ['attr' => $data])
                  ?>
                </div>
             </div>

@@ -19,6 +19,9 @@
     <link href="<?php echo base_url(); ?>assets/css/sb-admin.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>assets/css/custom-style.css" rel="stylesheet">
 
+
+      <link href="<?php echo base_url(); ?>assets/css/bootstrap-formhelpers.min.css" rel="stylesheet">
+
     <!-- Charts  -->
     <script src="<?php echo base_url(); ?>assets/vendor/chart.js/Chart.min.js"></script>
   </head>
@@ -160,6 +163,8 @@
     <!-- Custom scripts for all pages-->
     <script src="<?php echo base_url(); ?>assets/js/sb-admin.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+
+    <script src="<?php echo base_url(); ?>assets/js/bootstrap-formhelpers.min.js"></script>
 
     <!-- Demo scripts for this page-->
     <script src="<?php echo base_url(); ?>assets/js/demo/datatables-demo.js"></script>

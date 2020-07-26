@@ -20,7 +20,7 @@
                      'type' => 'date',
                      'placeholder' => ''
                    );
-                   echo form_input($data);    
+                    $this->load->view('layouts/datepicker', ['attr' => $data])
                 ?>
              </div>
            </div>
@@ -38,7 +38,7 @@
                      'type' => 'date',
                      'placeholder' => ''
                    );
-                   echo form_input($data);    
+                    $this->load->view('layouts/datepicker', ['attr' => $data])
                 ?>
              </div>
            </div>
