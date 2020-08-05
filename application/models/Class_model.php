@@ -144,6 +144,7 @@ class Class_model extends CI_Model {
             'classes' => $classes,
             'date' => $now->format('Y-m-d'),
             'time' => $from,
+            'oneHourBefore' => $now->modify('+1 hour')->format('H:00:00'),
             'subscribed_dates' => $subscribedDates
         ];
     }
