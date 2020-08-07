@@ -1,6 +1,8 @@
 <?php
 class Class_model extends CI_Model {
-	
+
+
+
     public function get_all()
     {
         return $this->db->get('classes')->result();
@@ -163,5 +165,45 @@ class Class_model extends CI_Model {
         }
 
         return true;
+    }
+
+    public function subscribers_by_date_range($from, $to)
+    {
+        $this->db->select('class_id, date, COUNT(id) as count');
+        $this->db->from('class_member');
+        $this->db->where('date >=', $from);
+        $this->db->where('date <=', $to);
+        $this->db->group_by('class_id, date');
+
+        $subscribers = $this->db->get()->result();
+        $classes = $this->get_all();
+        $subscribersByDate = [];
+
+        $from = new \DateTime($from);
+        $to = new \DateTime($to);
+
+        while ($from <= $to) {
+            foreach ($classes as $class) {
+
+                $count = 0;
+                foreach ($subscribers as $subscriber) {
+                    if ($subscriber->class_id === $class->id && $from->format('Y-m-d') === $subscriber->date) {
+                        $count = $subscriber->count;
+                        break;
+                    }
+                }
+
+                $subscribersByDate[] = [
+                    'class_id' => $class->id,
+                    'date' => $from->format('Y-m-d'),
+                    'time' => $class->time,
+                    'count' => $count
+                ];
+            }
+
+            $from->modify('+1 day');
+        }
+
+        return $subscribersByDate;
     }
 }

@@ -65,6 +65,9 @@
       case 'find_income_per_month_controller':
           $s =  "Find Income";
           break;
+      case 'find_members_per_class_controller':
+          $s =  "Find Members Class";
+          break;
       case 'income_per_month_controller':
           $s =  "Income";
           break;

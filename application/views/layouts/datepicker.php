@@ -25,8 +25,9 @@
         window.setTimeout(function () {
             if (typeof $ !== 'undefined') {
                 update_date_name_<?php echo $attr['name'] ?>();
-                $('#<?php echo $id ?> .glyphicon.glyphicon-chevron-left').addClass('fa fa-arrow-left');
-                $('#<?php echo $id ?> .glyphicon.glyphicon-chevron-right').addClass('fa fa-arrow-right');
+
+                $('#_<?php echo $id ?> .glyphicon.glyphicon-chevron-left').addClass('fa fa-arrow-left');
+                $('#_<?php echo $id ?> .glyphicon.glyphicon-chevron-right').addClass('fa fa-arrow-right');
 
                 $('#_<?php echo $id ?>').on('change.bfhdatepicker', function (e) {
                     update_date_name_<?php echo $attr['name'] ?>();

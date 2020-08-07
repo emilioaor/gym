@@ -35,13 +35,14 @@
         </div>
     </li>
 
-    <li class="nav-item dropdown <?php if($s == 'Find Income' || $s == 'Find Members' ){ echo html_escape('active'); } ?>">
+    <li class="nav-item dropdown <?php if($s == 'Find Income' || $s == 'Find Members' || $s == 'Find Members Class' ){ echo html_escape('active'); } ?>">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Overview
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="<?php echo base_url(); ?>find_members_per_month_controller">Members per month</a>
             <a class="dropdown-item" href="<?php echo base_url(); ?>find_income_per_month_controller">Income per month</a>
+            <a class="dropdown-item" href="<?php echo base_url(); ?>find_members_per_class_controller">Members per class</a>
         </div>
     </li>
 
