@@ -16,8 +16,8 @@
         <div class="alert alert-success alert-dismissible fade show " role="alert">
         <strong>Welcome</strong>
         <p>Today is birthday:</p>
-        <?php foreach ($birthday as $data): ?>
-          <p><?php echo strtoupper( $data->member_name ) ?></p>
+        <?php foreach ($birthday as $bd): ?>
+          <p><?php echo strtoupper( $bd->member_name ) ?></p>
         <?php endforeach; ?>  
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
