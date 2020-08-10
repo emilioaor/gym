@@ -50,6 +50,58 @@
                  ?>
                </div>
             </div>
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Email','email'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'email',
+                      'id' => 'email',
+                      'value' => html_escape($member_detail['member_email']),
+                      'placeholder' => ''
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Password','password'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'password',
+                      'id' => 'password',
+                      'placeholder' => 'Enter Password',
+                      'type' => 'password',
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <div class="col-md-2 col-form-label">
+                  <?php  echo form_label('Confirm Password','password'); ?>
+              </div>
+              <div class="col-md-4 col-md-offset-4">
+                  <?php
+                  $data = array(
+                      'class' => 'form-control',
+                      'name' => 'confirmpassword',
+                      'id' => 'confirmpassword',
+                      'placeholder' => 'Confirm Password',
+                      'type' => 'password',
+                  );
+                  echo form_input($data);
+                  ?>
+              </div>
+          </div>
             <div class="form-group row">
               <div class="col-md-2 col-form-label"> 
                  <?php  echo form_label('Upload Image','userimage'); ?>
@@ -139,24 +191,6 @@
                       'id' => 'year' 
                     );
                     echo form_dropdown($data,$options,$date[0]);    
-                 ?>
-               </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-md-2 col-form-label"> 
-                 <?php  echo form_label('Email','email'); ?>
-              </div>
-               <div class="col-md-4 col-md-offset-4">
-                <?php 
-                    $data = array(
-                      'class' => 'form-control',
-                      'name' => 'email',
-                      'id' => 'email',
-                      'value' => html_escape($member_detail['member_email']),
-                      'placeholder' => ''  
-                    );
-                    echo form_input($data);    
                  ?>
                </div>
             </div>
