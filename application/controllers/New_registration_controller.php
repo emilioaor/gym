@@ -14,6 +14,15 @@ class New_registration_controller extends CI_Controller {
     //Add New Member
     public function add_member()
     {
+        $user = $this->register_user_model->get_user_by_email($this->input->post('email'));
+
+        if ($user) {
+            $this->session->set_flashdata('alert_type', 'danger');
+            $this->session->set_flashdata('alert_msg', 'Email in use');
+
+            redirect('new_registration_controller');
+        }
+
         $config['upload_path']          = './images/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 2048;
@@ -85,6 +94,15 @@ class New_registration_controller extends CI_Controller {
     //Update Member
     public function update_member($member_reg_id)
     {
+        $member = $this->new_registration_model->is_email_in_use($this->input->post('email'), $member_reg_id);
+
+        if ($member) {
+            $this->session->set_flashdata('alert_type', 'danger');
+            $this->session->set_flashdata('alert_msg', 'Email in use');
+
+            redirect('new_registration_controller/member_detail/' . $member_reg_id);
+        }
+
         $config['upload_path']          = './images/';
         $config['allowed_types']        = 'gif|jpg|png';
         $config['max_size']             = 2048;

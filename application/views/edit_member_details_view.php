@@ -55,6 +55,7 @@
                   <?php  echo form_label('Email','email'); ?>
               </div>
               <div class="col-md-4 col-md-offset-4">
+                  <input type="hidden" name="email_original" value="<?php echo html_escape($member_detail['member_email']) ?>">
                   <?php
                   $data = array(
                       'class' => 'form-control',

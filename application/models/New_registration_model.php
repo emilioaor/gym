@@ -106,10 +106,19 @@ class New_registration_model extends CI_Model {
         }
     }
 
+    public function is_email_in_use($email, $member_reg_id)
+    {
+        $this->db->from('member_reg');
+        $this->db->where('member_email', $email);
+        $this->db->where('member_reg_id <>', $member_reg_id);
+
+        return $this->db->get()->row(0);
+    }
+
     //Update Member
     public function update_member($member_reg_id)
     {
-        $user = $this->db->where('user_email', $this->input->post('email'))->get('register_user')->row(0);
+        $user = $this->db->where('user_email', $this->input->post('email_original'))->get('register_user')->row(0);
 
         if (! $user) {
             return false;
@@ -140,14 +149,17 @@ class New_registration_model extends CI_Model {
         $this->db->where('member_reg_id' , $member_reg_id);
         $this->db->update('member_reg',$data);
 
+        $data = ['user_email' => $this->input->post('email')];
+
         if ($this->input->post('password')) {
 
             $option = ['cost' => 12];
             $encripted_pass = password_hash($this->input->post('password') ,  PASSWORD_BCRYPT , $option);
-
-            $this->db->where('user_email', $this->input->post('email'));
-            $this->db->update('register_user', ['user_password' => $encripted_pass]);
+            $data['user_password'] = $encripted_pass;
         }
+
+        $this->db->where('user_email', $this->input->post('email_original'));
+        $this->db->update('register_user', $data);
 
         return TRUE;
     }
