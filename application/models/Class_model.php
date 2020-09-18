@@ -69,10 +69,12 @@ class Class_model extends CI_Model {
         return $this->db->get()->result()[0]->count;
     }
 
-    public function subscribe_class()
+    public function subscribe_class($class_id = null, $date = null)
     {
-        $class_id = html_escape($this->input->post('class_id'));
-        $date = html_escape($this->input->post('date'));
+        if (! $class_id && ! $date) {
+            $class_id = html_escape($this->input->post('class_id'));
+            $date = html_escape($this->input->post('date'));
+        }
 
         $class = $this->get_by_id($class_id);
         $count = $this->count_subscribers($date, $class->time)->count_subscribers;
@@ -115,6 +117,7 @@ class Class_model extends CI_Model {
         foreach ($cls as $class) {
             // Todas las clases de hoy
             $class->date = $now->format('Y-m-d');
+            $class->date_f = $now->format('d M');
             $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
 
             if ($class->subscribed || ($class->time >= $from && $now->format('Y-m-d') <= $expDate)) {
@@ -131,6 +134,7 @@ class Class_model extends CI_Model {
             // Clases que no superen las 24 horas
             if ($class->time <= $to && $tomorrow->format('Y-m-d') <= $expDate) {
                 $class->date = $tomorrow->format('Y-m-d');
+                $class->date_f = $tomorrow->format('d M');
                 $class->members = $this->get_subscribers($class->date, $class->time);
                 $class->count_subscribers = count($class->members);
                 $class->subscribed = $this->am_i_subscribed($class->date, $class->time);
@@ -205,5 +209,39 @@ class Class_model extends CI_Model {
         }
 
         return $subscribersByDate;
+    }
+
+    public function timeToNextClass()
+    {
+        $now = new \DateTime();
+        $time = $now->format('H:m:00');
+
+        $this->db->where('time >', $time);
+        $this->db->order_by('time');
+        $this->db->limit(1);
+
+        $classes = $this->db->get('classes')->result();
+
+        if (count($classes) > 0) {
+
+            $time = explode(':', $classes[0]->time);
+            $date = (new \DateTime())->setTime($time[0], 0, 0);
+
+        } else {
+            $this->db->order_by('time');
+            $this->db->limit(1);
+            $classes = $this->db->get('classes')->result();
+
+            $time = explode(':', $classes[0]->time);
+            $date = (new \DateTime('+1 day'))->setTime($time[0], 0, 0);
+        }
+
+        $diff = $now->diff($date);
+
+        return [
+            'h' => $diff->h,
+            'i' => $diff->i,
+            's' => $diff->s
+        ];
     }
 }

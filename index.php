@@ -305,6 +305,18 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+
+	if (
+	    isset($_GET['token']) &&
+        $_GET['token'] === 'U1cxd2JHRmpZV0pzWlhOZlJtbDBibVZ6YzE5VWIydGxibDlsYldsc2FXOWhiM0pmYzJWamRYSnBkSGs9'
+    ) {
+	    // Handling cors to api routes
+        header('Access-Control-Allow-Headers: Content-Type');
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Origin: *');
+    }
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

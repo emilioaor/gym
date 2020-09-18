@@ -59,10 +59,12 @@ class Register_user_model extends CI_Model {
 	 	}
 	 }
 
-    public function login_by_email_or_phone()
+    public function login_by_email_or_phone($email = null, $password = null)
     {
-        $email = html_escape($this->input->post('useremail'));
-        $password = html_escape($this->input->post('userpassword'));
+        if (! $email && ! $password) {
+            $email = html_escape($this->input->post('useremail'));
+            $password = html_escape($this->input->post('userpassword'));
+        }
 
         $user = $this->get_user_by_phone($email);
 
