@@ -130,7 +130,7 @@ class Api_controller extends CI_Controller {
     {
         $data = json_decode($this->input->raw_input_stream, true);
 
-        $res = $this->register_user_model->update_firebase_token($data->class_id, $data->date);
+        $res = $this->register_user_model->update_firebase_token($data['user_id'], $data['firebase_token']);
 
         if ($res) {
             echo json_encode(['success' => true, 'data' => $res]);
