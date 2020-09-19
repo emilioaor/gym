@@ -138,4 +138,11 @@ class Api_controller extends CI_Controller {
             echo json_encode(['success' => false]);
         }
     }
+
+    public function push_alert_expiration()
+    {
+        $res = $this->register_user_model->push_alert_expiration();
+
+        echo json_encode(['success' => true, 'data' => $res]);
+    }
 }

@@ -114,4 +114,52 @@ class Register_user_model extends CI_Model {
 
         return $this->db->update('register_user', $data);
     }
+
+    public function push_alert_expiration()
+    {
+        $date = new \DateTime();
+        $today = $date->format('Y-m-d');
+        $after5days = $date->modify('+5 days')->format('Y-m-d');
+
+        $this->db->select('firebase_token');
+        $this->db->join('member_reg', 'member_reg.member_email = register_user.user_email');
+        $this->db->where('member_exp_date >=', $today);
+        $this->db->where('member_exp_date <=', $after5days);
+        $this->db->where('firebase_token is not null');
+        $registration_ids = array_column($this->db->get('register_user')->result(), 'firebase_token');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode([
+                'registration_ids' => $registration_ids,
+                'notification' => [
+                    'title' => 'Expiration notification',
+                    'body' => 'Your plan is about to expire'
+                ]
+            ]),
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/json",
+                "Authorization: key=AAAAeNWbxhY:APA91bEMgPJ93Zl3GQnpdsxssG1UiLiglgZ8I97AYCiUzXg4e4mNLyQyApEAZTW7R4CGtKXg5SyiPS7msIOscj65bkjXsgYik8WasQLBjueHbP0yr7S3hvYADXX09FGMkDqdmkDDAKxH"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response, true);
+
+        if (! $response) {
+            throw new \Exception('Bad request to firebase');
+        }
+
+        return $response;
+    }
 }
