@@ -103,4 +103,15 @@ class Register_user_model extends CI_Model {
 
         return $this->db->get()->row(0);
     }
+
+    public function update_firebase_token($user_id, $firebase_token)
+    {
+        $data = [
+            'firebase_token' => $firebase_token
+        ];
+
+        $this->db->where('user_id', $user_id);
+
+        return $this->db->update('register_user', $data);
+    }
 }

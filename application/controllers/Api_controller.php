@@ -125,4 +125,17 @@ class Api_controller extends CI_Controller {
             echo json_encode(['success' => false]);
         }
     }
+
+    public function update_firebase_token()
+    {
+        $data = json_decode($this->input->raw_input_stream, true);
+
+        $res = $this->register_user_model->update_firebase_token($data->class_id, $data->date);
+
+        if ($res) {
+            echo json_encode(['success' => true, 'data' => $res]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+    }
 }
